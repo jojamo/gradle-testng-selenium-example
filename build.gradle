@@ -1,0 +1,82 @@
+
+/*
+ * Plugins get defined here
+ * Example: Using a test logger plugin to print test outputs to console
+ */
+plugins {
+  id "com.adarshr.test-logger" version "1.6.0"
+  id "java"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+/*
+ * Test logger settings (for logger plugin: com.adarshr.test-logger)
+ */
+testlogger {
+    theme 'mocha'
+    showExceptions true
+    slowThreshold 10000
+    showSummary true
+    showPassed true
+    showSkipped true
+    showFailed true
+    showStandardStreams false
+    showPassedStandardStreams true
+    showSkippedStandardStreams true
+    showFailedStandardStreams true
+}
+
+// Where gradle should look for dependenices
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+/*
+ * Dependenices to download if not present in project
+ * Example: 
+ *      - TestNG for tests
+ *      - Selenium for browser automation
+ *      - WebDriverManager to automate the management of binary drivers required by selenium
+ */
+dependencies {
+    compile group: 'org.testng', name: 'testng', version: '6.9.10'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.141.59'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    testCompile("io.github.bonigarcia:webdrivermanager:3.3.0")
+}
+
+/* 
+ * This is the gradle task to be executed (cli: gradle clean test)
+ * useTestNG() tells gradle to use TestNG 
+ */
+test{ 
+    useTestNG()
+
+    // Force tests to always run, even if they haven't been updated (using "gradle clean" ensures this anyway)
+    outputs.upToDateWhen { false }
+}
+
+/* 
+ * Task definition with name 'smokeTests' (cli: gradle clean smokeTests)
+ * We define the group name by using ‘includeGroups’ parameter
+ * Only tests with the group name tag will be run. 
+ */
+task smokeTests(type: Test) {
+    useTestNG() {
+        includeGroups 'smoke'
+    }
+}
+task regressionTests(type: Test) {
+    useTestNG() {
+        includeGroups 'regression'
+    }
+}
+task suiteTest(type: Test) {
+    useTestNG() {
+        suites "src/test/suite/suite.xml"
+    }
+}

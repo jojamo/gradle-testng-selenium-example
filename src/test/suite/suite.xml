@@ -1,0 +1,9 @@
+<!--Your comment-->
+<suite name="Example Suite" verbose="1">
+
+  <test name="Test group 1">
+    <classes>
+      <class name="TryTestNG" />
+    </classes>
+  </test>
+</suite>
