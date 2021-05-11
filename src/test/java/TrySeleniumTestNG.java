@@ -1,3 +1,4 @@
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -11,8 +12,8 @@ public class TrySeleniumTestNG
     @Test
     public void SeleniumTest() throws InterruptedException
     {
-        WebDriverManager.firefoxdriver().setup();
-        driver = new FirefoxDriver();
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
 
         String URL = "https://www.google.com/";
         driver.get(URL);

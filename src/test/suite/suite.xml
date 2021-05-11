@@ -3,7 +3,7 @@
 
   <test name="Test group 1">
     <classes>
-      <class name="TryTestNG" />
+      <class name="TrySeleniumTestNG"/>
     </classes>
   </test>
 </suite>

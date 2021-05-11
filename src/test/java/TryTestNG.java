@@ -13,8 +13,7 @@ public class TryTestNG
     @Test
     public void test()
     {
-        System.out.println("I am in Testljkbdftxjtjsrjtkj");
-        System.out.println("I am in Testljkbdftxjtjsrjtkj");
+        System.out.println("I am in Test");
     }
 
     @AfterClass

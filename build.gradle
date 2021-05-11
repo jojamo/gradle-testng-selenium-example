@@ -1,63 +1,58 @@
-
 /*
- * Plugins get defined here
- * Example: Using a test logger plugin to print test outputs to console
- */
+* Plugins get defined here
+* Example: Using a test logger plugin to print test outputs to console
+*/
 plugins {
-  id "com.adarshr.test-logger" version "1.6.0"
+  id "groovy"
   id "java"
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 version = '1.0'
 
 /*
- * Test logger settings (for logger plugin: com.adarshr.test-logger)
+ * Declare version of Java gradle should use
  */
-testlogger {
-    theme 'mocha'
-    showExceptions true
-    slowThreshold 10000
-    showSummary true
-    showPassed true
-    showSkipped true
-    showFailed true
-    showStandardStreams false
-    showPassedStandardStreams true
-    showSkippedStandardStreams true
-    showFailedStandardStreams true
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }
 
-// Where gradle should look for dependenices
+/*
+ * Sources where gradle should look for dependencies
+ */
 repositories {
     mavenCentral()
     jcenter()
 }
 
 /*
- * Dependenices to download if not present in project
- * Example: 
+ * Dependencies to download if not present in project
+ * Example:
  *      - TestNG for tests
  *      - Selenium for browser automation
  *      - WebDriverManager to automate the management of binary drivers required by selenium
  */
 dependencies {
-    compile group: 'org.testng', name: 'testng', version: '6.9.10'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.141.59'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-    testCompile("io.github.bonigarcia:webdrivermanager:3.3.0")
+    implementation gradleApi()
+    implementation "org.testng:testng:7.1.0"
+    implementation "org.seleniumhq.selenium:selenium-server:4.0.0-alpha-2"
+    implementation "org.seleniumhq.selenium:selenium-java:4.0.0-beta-1"
+    implementation "io.github.bonigarcia:webdrivermanager:4.3.1"
 }
 
-/* 
+/*
  * This is the gradle task to be executed (cli: gradle clean test)
  * useTestNG() tells gradle to use TestNG 
  */
-test{ 
+test{
     useTestNG()
 
     // Force tests to always run, even if they haven't been updated (using "gradle clean" ensures this anyway)
     outputs.upToDateWhen { false }
+    testLogging.events "passed", "skipped", "failed"
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = "full"
 }
 
 /* 
