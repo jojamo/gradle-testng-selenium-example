@@ -17,9 +17,3 @@ Run example tests with task definitions:
 
 Reports are generated and placed in:
 - /build/reports/tests/
-
-Project uses a test logger plugin for fancy console printouts:
-- https://github.com/radarsh/gradle-test-logger-plugin
-
-Project uses the WebdriverManager by bonigarcia for the automated management of binary drivers required by selenium:
-- https://github.com/bonigarcia/webdrivermanager
