@@ -1,6 +1,0 @@
-TryTestNG.java
- TryTestNG
-TryGroupTestNG.java
- TryGroupTestNG
-TrySeleniumTestNG.java
- TrySeleniumTestNG
